@@ -390,7 +390,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 #ifdef ENCODER_ENABLE
-
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_QWERTY] = { ENCODER_CCW_CW(LSA(KC_TAB), A(KC_TAB)), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_LOWER] =  { ENCODER_CCW_CW(C(KC_LEFT), C(KC_RGHT)), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) },
+    [_RAISE] =  { ENCODER_CCW_CW(C(KC_Z), C(KC_Y)),       ENCODER_CCW_CW(S(KC_F3), KC_F3) },
+    [_ADJUST] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),       ENCODER_CCW_CW(RGB_SPD, RGB_SPI) },
+};
+#else
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
@@ -405,7 +412,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
            rgblight_step_reverse();
         }
     }
-    return true;
+    return false;
 }
 
+#endif
 #endif
