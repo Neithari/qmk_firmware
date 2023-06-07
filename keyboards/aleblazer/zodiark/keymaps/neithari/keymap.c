@@ -379,10 +379,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_UNDO:
             if (record->event.pressed) {
                 register_mods(mod_config(MOD_LCTL));
-                register_code(KC_Z);
+                register_code(KC_Y);
             } else {
                 unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_Z);
+                unregister_code(KC_Y);
             }
             return false;
     }
