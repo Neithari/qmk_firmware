@@ -20,3 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define OLED_DISPLAY_128X64
   #define OLED_TIMEOUT 400000
 #endif
+
+#define SPLIT_LED_STATE_ENABLE
+#define LED_CAPS_LOCK_PIN 24
+#define LED_PIN_ON_STATE 0
