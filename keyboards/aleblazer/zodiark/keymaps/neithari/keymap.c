@@ -391,11 +391,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef ENCODER_ENABLE
 #if defined(ENCODER_MAP_ENABLE)
+/**
+ * Encoder map configuration for different layers.
+ * 
+ * This array defines the behavior of rotary encoders for each layer.
+ * Each layer can have different actions assigned to the clockwise (CW) 
+ * and counterclockwise (CCW) rotations of the encoders.
+ * 
+ * Layers:
+ * - _QWERTY: Default layer
+ * - _LOWER: Lower layer
+ * - _RAISE: Raise layer
+ * - _ADJUST: Adjust layer
+ * 
+ * Actions:
+ * - ENCODER_CCW_CW(action_ccw, action_cw): Macro to define actions for CCW and CW rotations.
+ * 
+ * Example:
+ * - ENCODER_CCW_CW(LSA(KC_TAB), A(KC_TAB)): On the _QWERTY layer, the first encoder will send 
+ *   LSA(KC_TAB) on CCW rotation and A(KC_TAB) on CW rotation.
+ * - ENCODER_CCW_CW(KC_VOLD, KC_VOLU): On the _QWERTY layer, the second encoder will control 
+ *   volume down on CCW rotation and volume up on CW rotation.
+ */
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_QWERTY] = { ENCODER_CCW_CW(LSA(KC_TAB), A(KC_TAB)), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [_LOWER] =  { ENCODER_CCW_CW(C(KC_LEFT), C(KC_RGHT)), ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) },
-    [_RAISE] =  { ENCODER_CCW_CW(C(KC_Z), C(KC_Y)),       ENCODER_CCW_CW(S(KC_F3), KC_F3) },
-    [_ADJUST] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),       ENCODER_CCW_CW(RGB_SPD, RGB_SPI) },
+    [_QWERTY] = { ENCODER_CCW_CW(C(KC_SLSH), C(S(KC_SLSH))), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_LOWER] =  { ENCODER_CCW_CW(C(KC_LEFT), C(KC_RGHT)),    ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN) },
+    [_RAISE] =  { ENCODER_CCW_CW(C(KC_Z), C(KC_Y)),          ENCODER_CCW_CW(S(KC_F3), KC_F3) },
+    [_ADJUST] = { ENCODER_CCW_CW(RGB_HUD, RGB_HUI),          ENCODER_CCW_CW(RGB_SPD, RGB_SPI) },
 };
 #else
 bool encoder_update_user(uint8_t index, bool clockwise) {
