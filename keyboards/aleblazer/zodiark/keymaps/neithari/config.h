@@ -24,3 +24,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_LED_STATE_ENABLE
 #define LED_CAPS_LOCK_PIN 24
 #define LED_PIN_ON_STATE 0
+
+#define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds.
