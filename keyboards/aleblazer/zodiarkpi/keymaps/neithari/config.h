@@ -16,3 +16,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Default for VIA is 4
 #define DYNAMIC_KEYMAP_LAYER_COUNT 5
+
+// Screen support
+#define ST7789_NUM_DEVICES 1
+#define QUANTUM_PAINTER_DISPLAY_TIMEOUT 0
+#define LCD_RST_PIN GP27
+#define LCD_DC_PIN GP28
+#define LCD_CS_PIN GP11
+#define LCD_SPI_DIVISOR 8
+#define QUANTUM_PAINTER_DEBUG
+#define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS true
+
+// Azoteq TPS65 
+//#define AZOTEQ_IQS5XX_TPS65
+//#define SPLIT_POINTING_ENABLE
+//#define POINTING_DEVICE_RIGHT
+//#define POINTING_DEVICE_GESTURES_SCROLL_ENABLE

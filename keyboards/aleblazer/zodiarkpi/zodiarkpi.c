@@ -210,7 +210,7 @@ uint32_t deferred_init(uint32_t trigger_time, void *cb_arg) {
         // qp_init(display, QP_ROTATION_0);
         // }
     if (is_keyboard_left()) {
-        image = qp_load_image_mem(gfx_ZodiarkPiLogoSTpink);
+        image = qp_load_image_mem(gfx_ZodiarkPiLogo2Green);
     } 
 // If using pointing device on right side, comment out following 3 lines
     // else {
