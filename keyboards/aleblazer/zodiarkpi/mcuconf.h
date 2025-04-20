@@ -21,5 +21,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RP_SIO_USE_UART0
 #define RP_SIO_USE_UART0 TRUE
 
-//#undef STM32_I2C_USE_I2C2
-//#define STM32_I2C_USE_I2C2 TRUE
+#undef STM32_I2C_USE_I2C2
+#define STM32_I2C_USE_I2C2 TRUE

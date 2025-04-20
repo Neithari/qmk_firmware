@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS true
 
 // Azoteq TPS65 
-//#define AZOTEQ_IQS5XX_TPS65
-//#define SPLIT_POINTING_ENABLE
-//#define POINTING_DEVICE_RIGHT
+#define AZOTEQ_IQS5XX_TPS65
+#define SPLIT_POINTING_ENABLE
+#define POINTING_DEVICE_RIGHT
 //#define POINTING_DEVICE_GESTURES_SCROLL_ENABLE

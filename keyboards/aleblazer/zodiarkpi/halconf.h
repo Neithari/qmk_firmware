@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HAL_USE_SIO TRUE
 
 // Comment the following line out if using dual encoders
-// #define HAL_USE_I2C TRUE
+#define HAL_USE_I2C TRUE
 
 // SPI Config
 #define HAL_USE_SPI TRUE
