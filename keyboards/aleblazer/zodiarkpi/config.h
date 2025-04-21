@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
 
 // I2C config, comment out if using dual axis encoder
-#define I2C_DRIVER I2C0
+#define I2C_DRIVER I2CD0
 #define I2C1_SCL_PIN GP17
 #define I2C1_SDA_PIN GP16
 
