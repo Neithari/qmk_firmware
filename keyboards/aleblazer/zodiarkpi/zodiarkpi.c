@@ -173,24 +173,25 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
 #ifdef QUANTUM_PAINTER_ENABLE
 
-#include "images/ZodiarkPiLogoGC.qgf.c"
-#include "images/ZodiarkPiLogo2Green.qgf.c"
-#include "images/ZodiarkPiLogoSTpink.qgf.c"
+#include "qp.h"
+#include "qp_comms.h"
+#include "qp_st77xx_opcodes.h"
+#include "images/adeptus_mechanicus.qgf.h"
+#include "images/adeptus_mechanicus_pal.qgf.h"
+#include "images/ZodiarkPiLogo2Green.qgf.h"
 
 static painter_device_t display;
 static painter_image_handle_t image;
 
 // st7789 enable, comment out the following line if not using a st7789
-painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
-// gc9a01 enable, comment out the following line if not using a gc9a01
-// painter_device_t qp_gc9a01_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
+//painter_device_t qp_st7789_make_spi_device(uint16_t panel_width, uint16_t panel_height, pin_t chip_select_pin, pin_t dc_pin, pin_t reset_pin, uint16_t spi_divisor, int spi_mode);
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
-  debug_enable=true;
-  debug_matrix=true;
-  debug_keyboard=true;
-  debug_mouse=true;
+  debug_enable=false;
+  debug_matrix=false;
+  debug_keyboard=false;
+  debug_mouse=false;
 }
 
 uint32_t deferred_init(uint32_t trigger_time, void *cb_arg) {
@@ -198,57 +199,22 @@ uint32_t deferred_init(uint32_t trigger_time, void *cb_arg) {
     print("doing stuff\n");
 
 // ##st7789 screen support, comment out this section if not using a st7789 screen
-    display = qp_st7789_make_spi_device(320, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 3);
+    display = qp_st7789_make_spi_device(LCD_WIDTH, LCD_HEIGHT, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
     if (is_keyboard_left()) {
+        qp_init(display, LCD_ROTATION);
+        // Display offset
+        qp_set_viewport_offsets(display, LCD_OFFSET_X, LCD_OFFSET_Y);
         qp_power(display, true);
-        } 
-    if (is_keyboard_left()) {
-        qp_init(display, QP_ROTATION_180);
-        } 
-// If using pointing device on right side, comment out following 3 lines
-        // else {
-        // qp_init(display, QP_ROTATION_0);
-        // }
-    if (is_keyboard_left()) {
-        image = qp_load_image_mem(gfx_ZodiarkPiLogo2Green);
-    } 
-// If using pointing device on right side, comment out following 3 lines
-    // else {
-    //     image = qp_load_image_mem(gfx_ZodiarkPiLogoSTpink);
-    // }
-    // ##end st7789 screen support
-
-    // ##gc9a01 screeen support, comment out this section if not using a gc9a01 screen
-    // display = qp_gc9a01_make_spi_device(240, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, 0);
-    // qp_power(display, true);
-    // if (is_keyboard_left()) {
-    //     qp_init(display, QP_ROTATION_0);
-    //     } 
-    // If using pointing device on right side, comment out following 3 lines
-    //     else {
-    //     qp_init(display, QP_ROTATION_0);
-    //     }
-
-    //     if (is_keyboard_left()) {
-    //     image = qp_load_image_mem(gfx_ZodiarkPiLogoGC);
-    //      } 
-    // If using pointing device on right side, comment out following 3 lines
-    //     else {
-    //     image = qp_load_image_mem(gfx_ZodiarkPiLogoGC);
-    // }
-    // ##end GC9A01 screeen support
-
-    if (image != NULL) {
-        print("image was not null\n");
-        if (is_keyboard_left()) {
-            qp_drawimage(display, 0, 0, image);
-        } 
-    // If using pointing device on right side, comment out following 3 lines
-        // else {
-        //     qp_drawimage(display, 0, 0, image);
-        // }
+        qp_rect(display, 0, 0, LCD_WIDTH, LCD_HEIGHT, HSV_GREEN, 1);
+        //image = qp_load_image_mem(gfx_ZodiarkPiLogo2Green);
+        //image = qp_load_image_mem(gfx_adeptus_mechanicus);
+        image = qp_load_image_mem(gfx_adeptus_mechanicus_pal);
     }
+// ##end st7789 screen support
 
+    if (image && is_keyboard_left()) {
+        qp_drawimage(display, 0, 0, image);
+    }
 
     return(0);
 }
@@ -256,6 +222,6 @@ uint32_t deferred_init(uint32_t trigger_time, void *cb_arg) {
 void keyboard_post_init_kb(void)
 {
     debug_enable=true;
-    defer_exec(3000, deferred_init, NULL);
+    defer_exec(LCD_WAIT_TIME, deferred_init, NULL);
 }
 #endif
