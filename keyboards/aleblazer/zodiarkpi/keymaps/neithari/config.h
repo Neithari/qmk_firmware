@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LCD_CS_PIN GP11
 #define LCD_SPI_DIVISOR 8
 #define LCD_WAIT_TIME 3000
-#define LCD_ROTATION QP_ROTATION_180
+#define LCD_ROTATION QP_ROTATION_270
 #define LCD_OFFSET_X 0
 #define LCD_OFFSET_Y 0
 #define LCD_WIDTH 320 // Set according to your display specs
@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPI_MODE 3 // Set according to your display specs
 #define ST7789 // Set according to your display specs
 #define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS TRUE
-#define QUANTUM_PAINTER_DISPLAY_TIMEOUT 60000 // 60 seconds
+#define QUANTUM_PAINTER_DISPLAY_TIMEOUT 240000 // 240 seconds
 
 // Azoteq TPS65 
 #define AZOTEQ_IQS5XX_TPS65

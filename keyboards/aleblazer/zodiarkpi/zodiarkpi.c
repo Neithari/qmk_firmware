@@ -177,8 +177,6 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #include "qp_comms.h"
 #include "qp_st77xx_opcodes.h"
 #include "images/adeptus_mechanicus.qgf.h"
-#include "images/adeptus_mechanicus_pal.qgf.h"
-#include "images/ZodiarkPiLogo2Green.qgf.h"
 
 static painter_device_t display;
 static painter_image_handle_t image;
@@ -195,9 +193,6 @@ void keyboard_post_init_user(void) {
 }
 
 uint32_t deferred_init(uint32_t trigger_time, void *cb_arg) {
-
-    print("doing stuff\n");
-
 // ##st7789 screen support, comment out this section if not using a st7789 screen
     display = qp_st7789_make_spi_device(LCD_WIDTH, LCD_HEIGHT, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
     if (is_keyboard_left()) {
@@ -206,15 +201,12 @@ uint32_t deferred_init(uint32_t trigger_time, void *cb_arg) {
         qp_set_viewport_offsets(display, LCD_OFFSET_X, LCD_OFFSET_Y);
         qp_power(display, true);
         qp_rect(display, 0, 0, LCD_WIDTH, LCD_HEIGHT, HSV_GREEN, 1);
-        //image = qp_load_image_mem(gfx_ZodiarkPiLogo2Green);
-        //image = qp_load_image_mem(gfx_adeptus_mechanicus);
-        image = qp_load_image_mem(gfx_adeptus_mechanicus_pal);
+        image = qp_load_image_mem(gfx_adeptus_mechanicus);
+        if (image) {
+            qp_drawimage(display, 0, 0, image);
+        }
     }
 // ##end st7789 screen support
-
-    if (image && is_keyboard_left()) {
-        qp_drawimage(display, 0, 0, image);
-    }
 
     return(0);
 }
