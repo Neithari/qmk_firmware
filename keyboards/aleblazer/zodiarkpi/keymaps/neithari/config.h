@@ -34,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS TRUE
 #define QUANTUM_PAINTER_DISPLAY_TIMEOUT 240000 // 240 seconds
 
+#define BASIC_DISPLAY true
+
 // Azoteq TPS65 
 #define AZOTEQ_IQS5XX_TPS65
 #define SPLIT_POINTING_ENABLE
