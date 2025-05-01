@@ -151,6 +151,60 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   };
 // clang-format on
 
+#ifdef QUANTUM_PAINTER_ENABLE
+#ifndef BASIC_DISPLAY
+
+#include "qp.h"
+#include "qp_comms.h"
+#include "qp_st77xx_opcodes.h"
+#include "images/adeptus_mechanicus.qgf.h"
+#include "images/mechanicusServoskull320x240.qgf.h"
+
+static painter_device_t display;
+static painter_image_handle_t image;
+static deferred_token animation;
+
+uint32_t lcd_init(uint32_t trigger_time, void *cb_arg) {
+    display = qp_st7789_make_spi_device(LCD_WIDTH, LCD_HEIGHT, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, LCD_SPI_DIVISOR, SPI_MODE);
+    if (!is_keyboard_left()) {
+        return(0);
+    }
+    qp_init(display, LCD_ROTATION);
+    // Display offset
+    qp_set_viewport_offsets(display, LCD_OFFSET_X, LCD_OFFSET_Y);
+    qp_power(display, true);
+    qp_rect(display, 0, 0, LCD_WIDTH, LCD_HEIGHT, HSV_GREEN, 1);
+    image = qp_load_image_mem(gfx_adeptus_mechanicus);
+    if (image) {
+        qp_drawimage(display, 0, 0, image);
+    }
+
+    return(0);
+}
+
+uint32_t lcd_animation(uint32_t trigger_time, void *cb_arg) {
+    if (!is_keyboard_left()) {
+        return(0);
+    }
+    if (image) {
+        qp_close_image(image);
+    }
+    image = qp_load_image_mem(gfx_mechanicusServoskull320x240);
+    if (image) {
+        animation = qp_animate(display, 0, 0, image);
+    }
+
+    return(0);
+}
+
+void keyboard_post_init_kb(void)
+{
+    defer_exec(LCD_WAIT_TIME, lcd_init, NULL);
+    defer_exec(LCD_WAIT_TIME * 2, lcd_animation, NULL);
+}
+#endif // BASIC_DISPLAY
+#endif // QUANTUM_PAINTER_ENABLE
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       switch (keycode) {
           case KC_QWERTY:

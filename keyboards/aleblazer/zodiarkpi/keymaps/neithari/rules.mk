@@ -3,5 +3,6 @@ QUANTUM_PAINTER_ENABLE = yes
 QUANTUM_PAINTER_DRIVERS += st7789_spi
 ST7789 = true
 SRC += images/adeptus_mechanicus.qgf.c
+SRC += images/mechanicusServoskull320x240.qgf.c
 POINTING_DEVICE_ENABLE = yes
 POINTING_DEVICE_DRIVER = azoteq_iqs5xx

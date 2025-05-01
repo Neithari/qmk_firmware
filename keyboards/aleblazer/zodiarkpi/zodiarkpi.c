@@ -172,6 +172,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 #ifdef QUANTUM_PAINTER_ENABLE
+#ifdef BASIC_DISPLAY
 
 #include "qp.h"
 #include "qp_comms.h"
@@ -216,4 +217,5 @@ void keyboard_post_init_kb(void)
     debug_enable=true;
     defer_exec(LCD_WAIT_TIME, deferred_init, NULL);
 }
-#endif
+#endif // BASIC_DISPLAY
+#endif // QUANTUM_PAINTER_ENABLE
