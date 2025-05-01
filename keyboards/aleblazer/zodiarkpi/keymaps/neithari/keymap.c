@@ -36,7 +36,8 @@ enum custom_keycodes {
       KC_LEND,
       KC_DLINE
 };
-  
+
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* QWERTZ
    * .-----------------------------------------.                                .------------------------------------------.
@@ -147,7 +148,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_MOD, RGB_SPI, RGB_HUI, RGB_SAI, RGB_VAI,
         _______, _______, _______, _______, _______,      _______,     _______, _______,     _______,      RGB_RMOD,RGB_SPD, RGB_HUD, RGB_SAD, RGB_VAD
       )
-  };  
+  };
+// clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       switch (keycode) {
